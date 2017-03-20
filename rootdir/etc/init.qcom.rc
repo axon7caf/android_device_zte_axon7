@@ -578,6 +578,7 @@ service thermal-engine /system/vendor/bin/thermal-engine -c /system/etc/thermal-
    socket thermal-send-client stream 0666 system system
    socket thermal-recv-client stream 0660 system system
    socket thermal-recv-passive-client stream 0666 system system
+   socket thermal-send-rule stream 0660 system system
    group root
    socket thermal-send-client stream 0666 system system
    socket thermal-recv-client stream 0660 system system
@@ -590,6 +591,7 @@ service thermal-perf /system/vendor/bin/thermal-engine -c /system/etc/thermal-en
    socket thermal-send-client stream 0666 system system
    socket thermal-recv-client stream 0660 system system
    socket thermal-recv-passive-client stream 0666 system system
+   socket thermal-send-rule stream 0660 system system
    group root
    socket thermal-send-client stream 0666 system system
    socket thermal-recv-client stream 0660 system system
