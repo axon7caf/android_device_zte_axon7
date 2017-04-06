@@ -386,10 +386,10 @@ vendor/lib/libmdmdetect.so
 vendor/qcril.db
 
 # Radio - IMS
-bin/imscmservice
-bin/imsdatadaemon
-bin/imsqmidaemon
-bin/ims_rtp_daemon
+vendor/bin/imscmservice
+vendor/bin/imsdatadaemon
+vendor/bin/imsqmidaemon
+vendor/bin/ims_rtp_daemon
 etc/permissions/imscm.xml
 etc/permissions/qti-vzw-ims-internal.xml
 framework/imscmlibrary.jar
