@@ -4,7 +4,9 @@ PRODUCT_COPY_FILES += \
 
 # Power HAL
 PRODUCT_PACKAGES += \
-    power.msm8996
+    power.msm8996 \
+    android.hardware.power@1.0-service \
+    android.hardware.power@1.0-impl
 
 # Properties
 PRODUCT_PROPERTY_OVERRIDES += \
