@@ -8,6 +8,11 @@ PRODUCT_PACKAGES += \
     nqnfcse_access.xml \
     Tag
 
+PRODUCT_PACKAGES += \
+    android.hardware.nfc@1.0-impl \
+    vendor.nxp.hardware.nfc@1.0-impl \
+    vendor.nxp.hardware.nfc@1.0-service
+
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/nfc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
     $(LOCAL_PATH)/configs/nfc/libnfc-nxp.conf:system/etc/libnfc-nxp.conf
