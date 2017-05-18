@@ -17,6 +17,8 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     hostapd \
+    wificond \
+    wifilogd \
     wpa_supplicant \
     wpa_supplicant.conf \
     wifi_symlinks
