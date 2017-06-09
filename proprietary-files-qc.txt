@@ -282,7 +282,7 @@ vendor/lib/libcsm_data.so
 vendor/lib/libQtiTether.so
 
 # Perf
-bin/energy-awareness
+vendor/bin/energy-awareness
 bin/msm_irqbalance
 
 # Peripheral manager
