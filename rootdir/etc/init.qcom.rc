@@ -610,7 +610,7 @@ on property:debug.zte.vr_mode=0
     stop thermal-perf
     start thermal-engine
 
-service adsprpcd /system/bin/adsprpcd
+service adsprpcd /system/vendor/bin/adsprpcd
     class main
     user media
     group media
