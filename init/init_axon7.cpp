@@ -31,8 +31,9 @@
 
 #include "vendor_init.h"
 #include "property_service.h"
-#include "log.h"
-#include "util.h"
+
+namespace android {
+namespace init {
 
 static void init_alarm_boot_properties()
 {
@@ -69,3 +70,6 @@ void vendor_load_properties()
 {
     init_alarm_boot_properties();
 }
+
+}  // namespace init
+}  // namespace android
