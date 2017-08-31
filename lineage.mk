@@ -16,7 +16,7 @@
 $(call inherit-product, device/zte/axon7/full_axon7.mk)
 
 # Inherit some common LineageOS stuff.
-$(call inherit-product, vendor/cm/config/common_full_phone.mk)
+$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
 PRODUCT_NAME := lineage_axon7
 
