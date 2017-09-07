@@ -2,6 +2,7 @@
 PRODUCT_PACKAGES += \
     libc2dcolorconvert \
     libextmedia_jni \
+    libhypv_intercept \
     libOmxAacEnc \
     libOmxAmrEnc \
     libOmxCore \
