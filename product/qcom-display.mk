@@ -4,6 +4,7 @@ PRODUCT_PACKAGES += \
     copybit.msm8996 \
     gralloc.msm8996 \
     hwcomposer.msm8996 \
+    libdisplayconfig \
     libtinyxml \
     memtrack.msm8996 \
     qdcm_calib_data_zteSAM_S6E3HA3_SAM_25601440_5P5Inch.xml \
