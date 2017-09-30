@@ -14,6 +14,10 @@ PRODUCT_PACKAGES += \
     librmnetctl \
     libxml2
 
+PRODUCT_PACKAGES += \
+    android.system.net.netd@1.0 \
+    netutils-wrapper-1.0
+
 # RIL Properties
 PRODUCT_PROPERTY_OVERRIDES += \
      DEVICE_PROVISIONED=1 \
