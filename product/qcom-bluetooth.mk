@@ -1,7 +1,4 @@
-# Init
-PRODUCT_PACKAGES += \
-    init.qcom.bt.sh
-
+# Bluetooth
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl \
     android.hardware.bluetooth@1.0-service \

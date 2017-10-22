@@ -1,4 +1,4 @@
-# Copyright (c) 2012-2015, The Linux Foundation. All rights reserved.
+# Copyright (c) 2012-2015, 2017, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -26,21 +26,24 @@
 #
 
 # the DIAG device node is not world writable/readable.
-/dev/diag                 0660   system     qcom_diag
+/dev/diag                 0660   system     oem_2901
 
 /dev/kgsl                 0666   system     system
 /dev/kgsl-3d0             0666   system     system
 /dev/ion                  0664   system     system
 /dev/rtc0                 0660   system     system
 /dev/smd7                 0660   bluetooth  bluetooth
-/dev/ipa                  0660   system     net_admin
-/dev/wwan_ioctl           0660   system     net_admin
-/dev/ipaNatTable          0660   net_admin  net_admin
+/dev/ipa                  0660   radio      radio
+/dev/wwan_ioctl           0660   radio      radio
+/dev/ipaNatTable          0660   radio      radio
 /dev/rmnet_ctrl           0660   usb        usb
 /dev/dpl_ctrl             0660   usb        usb
 
 #permissions for CSVT
 /dev/smd11                0660   radio      radio
+
+#permissions for pta
+/dev/pta                  0660   system     system
 
 /dev/smdcntl0             0640   radio      radio
 /dev/smdcntl8             0640   radio      radio
@@ -77,7 +80,8 @@
 /dev/msm_aac_in           0660   system     audio
 /dev/msm_qcelp_in         0660   system     audio
 /dev/msm_evrc_in          0660   system     audio
-/dev/msm_amrnb_in         0640   system     audio
+/dev/msm_amrnb_in         0660   system     audio
+/dev/msm_amrwb_in         0660   system     audio
 /dev/msm_audio_cal        0660   system     audio
 /dev/msm_hweffects        0660   system     audio
 /dev/msm_rtac             0660   system     audio
@@ -108,3 +112,6 @@
 
 # Add device block for FRP
 /dev/block/platform/soc/624000.ufshc/by-name/frp        0600   system     system
+
+# Kmsg device
+/dev/kmsg                                               0620   root       system
