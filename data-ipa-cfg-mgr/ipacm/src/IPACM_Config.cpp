@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2013-2016, The Linux Foundation. All rights reserved.
+Copyright (c) 2013-2017, The Linux Foundation. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -88,6 +88,8 @@ const char *ipacm_event_name[] = {
 	__stringify(IPA_WAN_XLAT_CONNECT_EVENT),               /* ipacm_event_data_fid */
 	__stringify(IPA_TETHERING_STATS_UPDATE_EVENT),         /* ipacm_event_data_fid */
 	__stringify(IPA_NETWORK_STATS_UPDATE_EVENT),           /* ipacm_event_data_fid */
+	__stringify(IPA_DOWNSTREAM_ADD),                       /* ipacm_event_ipahal_stream */
+	__stringify(IPA_DOWNSTREAM_DEL),                       /* ipacm_event_ipahal_stream */
 	__stringify(IPA_EXTERNAL_EVENT_MAX),
 	__stringify(IPA_HANDLE_WAN_UP),                        /* ipacm_event_iface_up  */
 	__stringify(IPA_HANDLE_WAN_DOWN),                      /* ipacm_event_iface_up  */
@@ -105,6 +107,12 @@ const char *ipacm_event_name[] = {
 	__stringify(IPA_ETH_BRIDGE_CLIENT_DEL),                /* ipacm_event_eth_bridge*/
 	__stringify(IPA_ETH_BRIDGE_WLAN_SCC_MCC_SWITCH),       /* ipacm_event_eth_bridge*/
 	__stringify(IPA_LAN_DELETE_SELF),                      /* ipacm_event_data_fid */
+	__stringify(IPA_ADD_VLAN_IFACE),                       /* ipa_ioc_vlan_iface_info */
+	__stringify(IPA_DEL_VLAN_IFACE),                       /* ipa_ioc_vlan_iface_info */
+	__stringify(IPA_ADD_L2TP_VLAN_MAPPING),                /* ipa_ioc_l2tp_vlan_mapping_info */
+	__stringify(IPA_DEL_L2TP_VLAN_MAPPING),                /* ipa_ioc_l2tp_vlan_mapping_info */
+	__stringify(IPA_VLAN_CLIENT_INFO),                     /* ipacm_event_data_all */
+	__stringify(IPA_VLAN_IFACE_INFO),                      /* ipacm_event_data_all */
 	__stringify(IPACM_EVENT_MAX),
 };
 
@@ -144,8 +152,8 @@ IPACM_Config::IPACM_Config()
 
 	qmap_id = ~0;
 
-	memset(flt_rule_count_v4, 0, (IPA_CLIENT_CONS - IPA_CLIENT_PROD)*sizeof(int));
-	memset(flt_rule_count_v6, 0, (IPA_CLIENT_CONS - IPA_CLIENT_PROD)*sizeof(int));
+	memset(flt_rule_count_v4, 0, IPA_CLIENT_MAX*sizeof(int));
+	memset(flt_rule_count_v6, 0, IPA_CLIENT_MAX*sizeof(int));
 	memset(bridge_mac, 0, IPA_MAC_ADDR_SIZE*sizeof(uint8_t));
 
 	IPACMDBG_H(" create IPACM_Config constructor\n");
@@ -187,14 +195,6 @@ int IPACM_Config::Init(void)
 		goto fail;
 	}
 
-	/* Check wlan AP-AP access mode configuration */
-	if (cfg->num_wlan_guest_ap == 2)
-	{
-		IPACMDBG_H("IPACM_Config::Both wlan APs can not be configured in guest ap mode. \n");
-		IPACMDBG_H("IPACM_Config::configure both APs in full access mode or at least one in guest ap mode. \n");
-		ret = IPACM_FAILURE;
-		goto fail;
-	}
 	/* Construct IPACM Iface table */
 	ipa_num_ipa_interfaces = cfg->iface_config.num_iface_entries;
 	if (iface_table != NULL)
@@ -503,7 +503,7 @@ int IPACM_Config::DelNatIfaces(char *dev_name)
 	{
 		if (strcmp(dev_name, pNatIfaces[i].iface_name) == 0)
 		{
-			IPACMDBG_H("Find Nat IfaceName: %s ,previous nat-ifaces number: %d\n",
+			IPACMDBG_H("Found Nat IfaceName: %s with nat-ifaces number: %d\n",
 							 pNatIfaces[i].iface_name, ipa_nat_iface_entries);
 
 			/* Reset the matched entry */
@@ -526,6 +526,26 @@ int IPACM_Config::DelNatIfaces(char *dev_name)
 	IPACMDBG_H("Can't find Nat IfaceName: %s with total nat-ifaces number: %d\n",
 					    dev_name, ipa_nat_iface_entries);
 	return 0;
+}
+
+int IPACM_Config::CheckNatIfaces(const char *dev_name)
+{
+	int i = 0;
+	IPACMDBG_H("Check iface %s from NAT-ifaces, currently it has %d nat ifaces\n",
+					 dev_name, ipa_nat_iface_entries);
+
+	for (i = 0; i < ipa_nat_iface_entries; i++)
+	{
+		if (strcmp(dev_name, pNatIfaces[i].iface_name) == 0)
+		{
+			IPACMDBG_H("Find Nat IfaceName: %s ,previous nat-ifaces number: %d\n",
+							 pNatIfaces[i].iface_name, ipa_nat_iface_entries);
+			return 0;
+		}
+	}
+	IPACMDBG_H("Can't find Nat IfaceName: %s with total nat-ifaces number: %d\n",
+					    dev_name, ipa_nat_iface_entries);
+	return -1;
 }
 
 /* for IPACM resource manager dependency usage
